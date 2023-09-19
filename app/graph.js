@@ -14,10 +14,11 @@ function callMSGraph(endpoint, token, callback) {
     };
 
     console.log('request made to Graph API at: ' + new Date().toString());
-
-    fetch(endpoint, options)
-        .then(response => response.json())
-        .then(response => callback(response, endpoint))
+    console.log(endpoint);
+    const wtf = endpoint == graphConfig.graphMeEndpoint ? endpoint : "https://graph.microsoft.com/v1.0/me/contacts";
+    fetch(wtf, options)
+        .then(response => endpoint == graphConfig.graphMeEndpoint ? response.json() : response.json())
+        .then(response => callback(response, wtf))
         .catch(error => console.log(error));
 }
 

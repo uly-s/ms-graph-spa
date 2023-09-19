@@ -50,6 +50,7 @@ function signIn() {
         .catch(error => {
             console.error(error);
         });
+    readContacts();
 }
 
 function signOut() {
@@ -103,10 +104,10 @@ function seeProfile() {
         });
 }
 
-function readMail() {
+function readContacts() {
     getTokenPopup(tokenRequest)
         .then(response => {
-            callMSGraph(graphConfig.graphMailEndpoint, response.accessToken, updateUI);
+            callMSGraph(graphConfig.graphContactsEndpoint, response.accessToken, updateUI);
         }).catch(error => {
             console.error(error);
         });

@@ -1,0 +1,5 @@
+UI Requirements:
+
+    1. view contacts in UI
+    2. download contacts as a file (json then csv)
+    3. run (basic) deduping against contacts

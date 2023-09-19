@@ -2,7 +2,7 @@
 const welcomeDiv = document.getElementById("WelcomeMessage");
 const signInButton = document.getElementById("SignIn");
 const cardDiv = document.getElementById("card-div");
-const mailButton = document.getElementById("readMail");
+const mailButton = document.getElementById("readContacts");
 const profileButton = document.getElementById("seeProfile");
 const profileDiv = document.getElementById("profile-div");
 
@@ -33,38 +33,7 @@ function updateUI(data, endpoint) {
         profileDiv.appendChild(phone);
         profileDiv.appendChild(address);
 
-    } else if (endpoint === graphConfig.graphMailEndpoint) {
-        if (!data.value) {
-            alert("You do not have a mailbox!")
-        } else if (data.value.length < 1) {
-            alert("Your mailbox is empty!")
-        } else {
-            const tabContent = document.getElementById("nav-tabContent");
-            const tabList = document.getElementById("list-tab");
-            tabList.innerHTML = ''; // clear tabList at each readMail call
-
-            data.value.map((d, i) => {
-                // Keeping it simple
-                if (i < 10) {
-                    const listItem = document.createElement("a");
-                    listItem.setAttribute("class", "list-group-item list-group-item-action")
-                    listItem.setAttribute("id", "list" + i + "list")
-                    listItem.setAttribute("data-toggle", "list")
-                    listItem.setAttribute("href", "#list" + i)
-                    listItem.setAttribute("role", "tab")
-                    listItem.setAttribute("aria-controls", i)
-                    listItem.innerHTML = d.subject;
-                    tabList.appendChild(listItem)
-
-                    const contentItem = document.createElement("div");
-                    contentItem.setAttribute("class", "tab-pane fade")
-                    contentItem.setAttribute("id", "list" + i)
-                    contentItem.setAttribute("role", "tabpanel")
-                    contentItem.setAttribute("aria-labelledby", "list" + i + "list")
-                    contentItem.innerHTML = "<strong> from: " + d.from.emailAddress.address + "</strong><br><br>" + d.bodyPreview + "...";
-                    tabContent.appendChild(contentItem);
-                }
-            });
-        }
+    } else if (endpoint === graphConfig.graphContactsEndpoint) {
+        window.contacts = data.value;
     }
 }

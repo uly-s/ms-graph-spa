@@ -97,11 +97,12 @@ function seeProfile() {
         });
 }
 
-function readMail() {
+function readContacts() {
     getTokenRedirect(tokenRequest)
         .then(response => {
-            callMSGraph(graphConfig.graphMailEndpoint, response.accessToken, updateUI);
+            callMSGraph("https://graph.microsoft.com/v1.0/me/contacts", response.accessToken, updateUI);
         }).catch(error => {
             console.error(error);
         });
 }
+

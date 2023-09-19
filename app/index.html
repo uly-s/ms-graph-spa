@@ -12,6 +12,8 @@
     integrity="sha384-o4ufwq3oKqc7IoCcR08YtZXmgOljhTggRwxP2CLbSqeXGtitAxwYaUln/05nJjit"
     crossorigin="anonymous"></script>
   
+  <script src="https://unpkg.com/@microsoft/mgt@2/dist/bundle/mgt-loader.js"></script>
+
   <!-- adding Bootstrap 4 for UI components  -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -19,45 +21,86 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="/">Microsoft identity platform</a>
-    <div class="btn-group ml-auto dropleft">
-      <button type="button" id="SignIn" class="btn btn-secondary" onclick="signIn()">
-        Sign In
-      </button>
-    </div>
-  </nav>
-  <br>
-  <h5 class="card-header text-center">Vanilla JavaScript SPA calling MS Graph API with MSAL.js</h5>
-  <br>
-  <div class="row" style="margin:auto">
-    <div id="card-div" class="col-md-3" style="display:none">
-      <div class="card text-center">
-        <div class="card-body">
-          <h5 class="card-title" id="WelcomeMessage">Please sign-in to see your profile and read your mails</h5>
-          <div id="profile-div"></div>
-          <br>
-          <br>
-          <button class="btn btn-primary" id="seeProfile" onclick="seeProfile()">See Profile</button>
-          <br>
-          <br>
-          <button class="btn btn-primary" id="readMail" onclick="readMail()">Read Mails</button>
+  <mgt-msal2-provider client-id="6932e19a-340d-4abe-a5a6-2a1d841ebae2"
+                      scopes="user.read,contacts.readwrite">
+  </mgt-msal2-provider>
+  <div  id="app">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="/">Microsoft identity platform</a>
+      <div class="btn-group ml-auto dropleft">
+        <mgt-login></mgt-login>
+      </div>
+    </nav>
+    <br>
+    <h5 class="card-header text-center">Email Fixing Application Login Test</h5>
+    <br>
+    <div class="row" style="margin:auto">
+      <div id="card-div" class="col-md-3" style="display:none">
+        <div class="card text-center">
+          <div class="card-body">
+            <h5 class="card-title" id="WelcomeMessage">Please sign-in to see your profile and read your mails</h5>
+            <div id="profile-div"></div>
+            <br>
+            <br>
+            <button class="btn btn-primary" id="seeProfile" onclick="seeProfile()">See Profile</button>
+            <br>
+            <br>
+            <button class="btn btn-primary" id="readContacts" onclick="readContacts()">Retrieve Contacts</button>
+            <br>
+            <br>
+            <button class="btn btn-primary" id="displayContacts" @click="test = $window.contacts">Display Contacts</button>
+          </div>
         </div>
       </div>
+      <br>
+      <br>
+      <div class="col-md-2">
+
+      </div>
+      <div class="col-md-4">
+        <div class="list-group" id="list-tab" role="tablist">
+          <mgt-people-picker></mgt-people-picker>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="tab-content" id="nav-tabContent">
+          <mgt-person-card person-query="me" id="online" show-presence></mgt-person-card>
+        </div>
+      </div>
+      <div class="col-md-2">
+
+      </div>
     </div>
     <br>
     <br>
-    <div class="col-md-4">
-      <div class="list-group" id="list-tab" role="tablist">
-      </div>
-    </div>
-    <div class="col-md-5">
-      <div class="tab-content" id="nav-tabContent">
-      </div>
-    </div>
+  
   </div>
-  <br>
-  <br>
+
+  <script type="module">
+
+    var _loading = true;
+    var _contacts = {}
+    function displayContacts() {
+      _contacts = window.contacts;
+      _loading = false;
+    }
+
+    /*
+    import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.esm.browser.js"
+
+    new Vue({
+        el: "#app",
+        data: {
+          message: 'Hello vue!',
+          test: [],
+          loading: false
+        }, 
+        created() {
+          this.$window = window
+        },
+      }
+    )*/
+  </script>
 
   <!-- importing bootstrap.js and supporting js libraries -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
