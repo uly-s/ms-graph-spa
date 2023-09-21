@@ -9,7 +9,7 @@ const msalConfig = {
         clientId: "6932e19a-340d-4abe-a5a6-2a1d841ebae2",
         // Full directory URL, in the form of https://login.microsoftonline.com/<tenant-id>
         authority: "https://login.microsoftonline.com/common",
-        // Full redirect URL, in form of http://localhost:3000  
+        // Full redirect URL, in form of http://localhost:3000 https://sval.azurewebsites.net/.auth/login/aad/callback  
         redirectUri: "https://sval.azurewebsites.net/.auth/login/aad/callback",
     },
     cache: {
