@@ -11,8 +11,6 @@
   <script src="https://alcdn.msauth.net/browser/2.30.0/js/msal-browser.js"
     integrity="sha384-o4ufwq3oKqc7IoCcR08YtZXmgOljhTggRwxP2CLbSqeXGtitAxwYaUln/05nJjit"
     crossorigin="anonymous"></script>
-  
-  <script src="https://unpkg.com/@microsoft/mgt@2/dist/bundle/mgt-loader.js"></script>
 
   <!-- adding Bootstrap 4 for UI components  -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -21,14 +19,13 @@
 </head>
 
 <body>
-  <mgt-msal2-provider client-id="6932e19a-340d-4abe-a5a6-2a1d841ebae2"
-                      scopes="user.read,contacts.readwrite">
-  </mgt-msal2-provider>
   <div  id="app">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <a class="navbar-brand" href="/">Microsoft identity platform</a>
       <div class="btn-group ml-auto dropleft">
-        <mgt-login></mgt-login>
+        <button type="button" id="SignIn" class="btn btn-secondary" onclick="signIn()">
+          Sign In
+        </button>
       </div>
     </nav>
     <br>
@@ -45,10 +42,17 @@
             <button class="btn btn-primary" id="seeProfile" onclick="seeProfile()">See Profile</button>
             <br>
             <br>
-            <button class="btn btn-primary" id="readContacts" onclick="readContacts()">Retrieve Contacts</button>
+            <button class="btn btn-primary" id="readContacts" onclick="readAllContacts()">Retrieve Contacts</button>
             <br>
             <br>
-            <button class="btn btn-primary" id="displayContacts" @click="test = $window.contacts">Display Contacts</button>
+            <div id="downloads">
+
+            </div>
+            <br>
+            <br>
+            <div id="delete">
+
+            </div>
           </div>
         </div>
       </div>
@@ -59,7 +63,6 @@
       </div>
       <div class="col-md-2">
         <div class="tab-content" id="nav-tabContent">
-          <mgt-person-card person-query="me" id="online" show-presence></mgt-person-card>
         </div>
       </div>
       <div class="col-md-5">
@@ -80,21 +83,6 @@
       _loading = false;
     }
 
-    /*
-    import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.esm.browser.js"
-
-    new Vue({
-        el: "#app",
-        data: {
-          message: 'Hello vue!',
-          test: [],
-          loading: false
-        }, 
-        created() {
-          this.$window = window
-        },
-      }
-    )*/
   </script>
 
   <!-- importing bootstrap.js and supporting js libraries -->

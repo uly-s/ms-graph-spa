@@ -95,6 +95,17 @@ function getTokenPopup(request) {
     });
 }
 
+function getToken() {
+    let token = null;
+    getTokenPopup(tokenRequest)
+        .then(response => {
+            token = response.accessToken;
+        }).catch(error => {
+            console.error(error);
+        });
+    return token;
+}
+
 function seeProfile() {
     getTokenPopup(loginRequest)
         .then(response => {
@@ -108,6 +119,15 @@ function readContacts() {
     getTokenPopup(tokenRequest)
         .then(response => {
             callMSGraph(graphConfig.graphContactsEndpoint, response.accessToken, updateUI);
+        }).catch(error => {
+            console.error(error);
+        });
+}
+
+function readAllContacts() {
+    getTokenPopup(tokenRequest)
+        .then(response => {
+            callMSGraphPaginated(graphConfig.graphContactsEndpoint, response.accessToken, updateUI);
         }).catch(error => {
             console.error(error);
         });
