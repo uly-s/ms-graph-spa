@@ -10,7 +10,7 @@ const msalConfig = {
         // Full directory URL, in the form of https://login.microsoftonline.com/<tenant-id>
         authority: "https://login.microsoftonline.com/common",
         // Full redirect URL, in form of http://localhost:3000 https://sval.azurewebsites.net/.auth/login/aad/callback  
-        redirectUri: "http://localhost:3000",
+        redirectUri: "https://sval.azurewebsites.net/.auth/login/aad/callback",
     },
     cache: {
         cacheLocation: "sessionStorage", // This configures where your cache will be stored
