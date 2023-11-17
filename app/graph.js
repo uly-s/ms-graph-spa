@@ -75,7 +75,7 @@ function deleteAllContacts(_token) {
           .then((response) => response.json())
           .then((response) => console.log(response))
           .catch((error) => token = getToken());
-    }, 500);
+    }, 1000);
 
   });
 }

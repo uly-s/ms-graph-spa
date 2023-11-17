@@ -46,11 +46,35 @@
             <br>
             <br>
             <div id="downloads">
-
+            </div>
+            <br>
+            <br>
+            <div id="upload">
+              <form id="upload-form">
+                <div class="form-group">
+                  <label for="json-file">Upload JSON file:</label>
+                  <input type="file" class="form-control-file" id="json-file" accept=".json">
+                </div>
+                <button type="submit" class="btn btn-primary">Upload</button>
+              </form>
             </div>
             <br>
             <br>
             <div id="delete">
+            <button class="btn btn-primary" id="hitEndpoint" onclick="hitEndpoint()">Hit Endpoint</button>
+            <script>
+              async function hitEndpoint() {
+                try {
+                  const response = await fetch('/api/msgraph', {
+                    method: 'POST'
+                  });
+                  const data = await response.json();
+                  console.log(data);
+                } catch (error) {
+                  console.error(error);
+                }
+              }
+            </script>
 
             </div>
           </div>
@@ -73,7 +97,34 @@
     <br>
   
   </div>
-
+  <script>
+    const form = document.getElementById('upload-form');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const fileInput = document.getElementById('json-file');
+      const file = fileInput.files[0];
+      if (!file) {
+        alert('Please select a file to upload');
+        return;
+      }
+      const formData = new FormData();
+      formData.append('file', file);
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData
+        });
+        if (response.ok) {
+          alert('File uploaded successfully');
+        } else {
+          alert('Failed to upload file');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('An error occurred while uploading the file');
+      }
+    });
+  </script>
   <script type="module">
 
     var _loading = true;
